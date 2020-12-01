@@ -14,7 +14,7 @@ from cmascience.definitions import ROOT_DIR
 DEBUG = True
 
 
-hadobs = Path(ROOT_DIR) / 'data' / 'reference' / 'hadobs'
+hadobs = Path(ROOT_DIR) / "data" / "reference" / "hadobs"
 
 # add reader
 # compile to summary
@@ -26,10 +26,9 @@ hadobs = Path(ROOT_DIR) / 'data' / 'reference' / 'hadobs'
 # potentially replaces observation_data.csv
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     if DEBUG:
-        print('------')
-        #print(f'Reading metadata from:', outfile)
-        print('------')
-
+        print("------")
+        # print(f'Reading metadata from:', outfile)
+        print("------")

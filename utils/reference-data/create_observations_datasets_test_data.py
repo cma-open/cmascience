@@ -20,20 +20,44 @@ DEBUG = True
 
 # Note - this is a mocked up dataset list, although based on HadObs it is just for training purposes
 
-data = {'dataset':
-            ['HadISST', 'HadSST3', 'HadSST4', 'HadNMAT2', 'EN4', 'HadCRUT4', 'HadCRUH', 'data8'],
-        'latest':
-            ['1.1', '3.1.1.0', '4.0.0.0', '2.0.1.0', '4.2.1', '4.6.0.0', '1', '1'],
-       'category':
-           ['marine', 'marine', 'marine', 'marine', 'marine', 'blended', 'blended', 'land'],
-       'format':
-            ['netcdf', 'netcdf', 'netcdf', 'netcdf', 'zip', 'netcdf', 'netcdf', 'txt']
-       }
+data = {
+    "dataset": [
+        "HadISST",
+        "HadSST3",
+        "HadSST4",
+        "HadNMAT2",
+        "EN4",
+        "HadCRUT4",
+        "HadCRUH",
+        "data8",
+    ],
+    "latest": ["1.1", "3.1.1.0", "4.0.0.0", "2.0.1.0", "4.2.1", "4.6.0.0", "1", "1"],
+    "category": [
+        "marine",
+        "marine",
+        "marine",
+        "marine",
+        "marine",
+        "blended",
+        "blended",
+        "land",
+    ],
+    "format": [
+        "netcdf",
+        "netcdf",
+        "netcdf",
+        "netcdf",
+        "zip",
+        "netcdf",
+        "netcdf",
+        "txt",
+    ],
+}
 
 df = pd.DataFrame(data)
 
-filename = 'observation_data.csv'
-outfile = Path(ROOT_DIR) / 'data' / 'reference' / filename
+filename = "observation_data.csv"
+outfile = Path(ROOT_DIR) / "data" / "reference" / filename
 
 
 def write_csv_data(df, outfile):
@@ -43,14 +67,14 @@ def write_csv_data(df, outfile):
     :return:
     """
 
-    df.to_csv(outfile, encoding='utf-8', index=False)
+    df.to_csv(outfile, encoding="utf-8", index=False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     if DEBUG:
-        print('------')
-        print(f'Writing test data to:', outfile)
-        print('------')
+        print("------")
+        print(f"Writing test data to:", outfile)
+        print("------")
 
     write_csv_data(df, outfile)

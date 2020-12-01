@@ -10,12 +10,18 @@ import argparse
 from pathlib import Path
 from contextlib import redirect_stdout
 
-from cmascience.cli_simple import cli_parse_args, cli_parser, cli_analysis, cli_arguments
+from cmascience.cli_simple import (
+    cli_parse_args,
+    cli_parser,
+    cli_analysis,
+    cli_arguments,
+)
 
 from cmascience.definitions import ROOT_DIR
 
 # Define cli filepath
-CLI = Path(ROOT_DIR, 'cmascience','cli_simple.py')
+CLI = Path(ROOT_DIR, "cmascience", "cli_simple.py")
+
 
 def test_cli_parser():
 
@@ -23,12 +29,13 @@ def test_cli_parser():
 
     parser = cli_parser()
     # Confirm output object is correct parser type
-    assert  isinstance(parser, argparse.ArgumentParser)
+    assert isinstance(parser, argparse.ArgumentParser)
     # Confirm cli tool name is correct
-    assert parser.prog == 'CLI-SIMPLE'
+    assert parser.prog == "CLI-SIMPLE"
     # Confirm the cli tool has a text description
     assert isinstance(parser.description, str)
     # Confirm the cli tool has a text description
+
 
 def test_cli_arguments():
 
@@ -43,19 +50,20 @@ def test_cli_arguments():
     # Not easily possible to test just that the arguments have been added and named without calling parser
     # One option below,
     # TODO, remove this, as covered by parse_args tests
-    assert '--x' in varlist['_option_string_actions']
-    assert '--y' in varlist['_option_string_actions']
+    assert "--x" in varlist["_option_string_actions"]
+    assert "--y" in varlist["_option_string_actions"]
 
     # Can also test via calling parse args
-    parsed = parser_args.parse_args(['--x', '5', '--y', '4'])
+    parsed = parser_args.parse_args(["--x", "5", "--y", "4"])
     assert parsed.x == 5
+
 
 def test_cli_parse_args():
 
     """Test for cli_parse_args() function"""
 
     # Set user input args and input values
-    user_args = ['--x', '1', '--y', '2']
+    user_args = ["--x", "1", "--y", "2"]
 
     parsed_args = cli_parse_args(user_args)
 
@@ -63,12 +71,13 @@ def test_cli_parse_args():
     assert isinstance(parsed_args, argparse.Namespace)
 
     # Confirm arguments names have been set
-    assert 'x' in vars(parsed_args)
-    assert 'y' in vars(parsed_args)
+    assert "x" in vars(parsed_args)
+    assert "y" in vars(parsed_args)
 
     # Confirm the argument values have been read back correctly
     assert parsed_args.x == 1
     assert parsed_args.y == 2
+
 
 def test_cli_analysis():
     """Test for cli_analysis() function """

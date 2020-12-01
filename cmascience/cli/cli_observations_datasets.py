@@ -18,9 +18,8 @@ from cmascience.definitions import ROOT_DIR
 
 DEBUG = True
 
-observations = 'observation_data.csv'
-obsfile = Path(ROOT_DIR) / 'data' / 'reference' / observations
-
+observations = "observation_data.csv"
+obsfile = Path(ROOT_DIR) / "data" / "reference" / observations
 
 
 def observations(args) -> pd.DataFrame:
@@ -35,10 +34,11 @@ def observations(args) -> pd.DataFrame:
 
     # Select from the dataframe based on the input dataset category
     # df.loc Access a group of rows and columns by label(s) or a boolean array
-    obs_selection = df.loc[df['category'] == args.dataset]
+    obs_selection = df.loc[df["category"] == args.dataset]
     # There should always be a selection, all data entries should have a category
 
     return obs_selection
+
 
 def check_netcdf(args, obs_selection) -> pd.DataFrame:
     """ Check for netcdf flag and if present, select only netcdf records
@@ -46,16 +46,18 @@ def check_netcdf(args, obs_selection) -> pd.DataFrame:
     """
 
     if args.netcdf:
-        obs_netcdf = obs_selection.loc[obs_selection['format'] == '.netcdf']
+        obs_netcdf = obs_selection.loc[obs_selection["format"] == ".netcdf"]
         return obs_netcdf
     else:
         return obs_selection
+
 
 def all(args) -> pd.DataFrame:
     """ Return all the datasets, accounting for the netcdf option flags
 
     """
     return check_netcdf(args, observations(args))
+
 
 def pick(args) -> pd.DataFrame:
     """ Return a single dataset, as a sample, accounting for the netcdf option flags

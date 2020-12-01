@@ -11,8 +11,8 @@ from cmascience.cli_datasets import cli_datasets_entry_point
 from cmascience.definitions import ROOT_DIR
 
 # Define cli filepath
-CLI = Path(ROOT_DIR, 'cmascience','cli_datasets.py')
-MODULE='cmascience.cli_datasets'
+CLI = Path(ROOT_DIR, "cmascience", "cli_datasets.py")
+MODULE = "cmascience.cli_datasets"
 
 
 def test_cli_help_from_path():
@@ -22,7 +22,7 @@ def test_cli_help_from_path():
     uses call to --help option to test cli tool is working
     """
 
-    user_args = '--help'
+    user_args = "--help"
     # Call the cli script via python and assign response
     out = subprocess.run(["python3", str(CLI), user_args], check=True)
 
@@ -36,12 +36,13 @@ def test_cli_args_from_path():
 
     uses call with arguments set to test cli tool
     """
-    user_arg_x = 'land'
-    user_arg_y = 'all'
+    user_arg_x = "land"
+    user_arg_y = "all"
     # Call the cli script via python - with args,  and assign response
     out = subprocess.run(["python3", str(CLI), user_arg_x, user_arg_y], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
+
 
 def test_cli_run_as_module():
     """
@@ -51,9 +52,10 @@ def test_cli_run_as_module():
     """
 
     # Call the cli script via python as named module  and assign response
-    out = subprocess.run(["python3", '-m', MODULE, '--help'], check=True)
+    out = subprocess.run(["python3", "-m", MODULE, "--help"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
+
 
 def test_cli_function_run():
     """
@@ -63,11 +65,15 @@ def test_cli_function_run():
     """
 
     # Call the cli script via python as named module  and assign response
-    out = subprocess.run(['python3',
-                          '-c',
-                          '"from cmascience.cli_datasets import cli_datasets_entry_point; cli_datasets_entry_point()"',
-                          '--help'],
-                         check=True)
+    out = subprocess.run(
+        [
+            "python3",
+            "-c",
+            '"from cmascience.cli_datasets import cli_datasets_entry_point; cli_datasets_entry_point()"',
+            "--help",
+        ],
+        check=True,
+    )
 
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
@@ -82,26 +88,26 @@ def test_cli_datasets_run_as_entrypoint():
 
     # Call the cli tool by script name
     # The name is set by the entry_points section of setup.py
-    out = subprocess.run(['cli-datasets', '--help'], check=True)
+    out = subprocess.run(["cli-datasets", "--help"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
-    out = subprocess.run(['cli-datasets', 'land', 'all'], check=True)
+    out = subprocess.run(["cli-datasets", "land", "all"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
     # cli tool will run with one subcommand argument, as the main input has a default value, so is optional
-    out = subprocess.run(['cli-datasets', 'all'], check=True)
+    out = subprocess.run(["cli-datasets", "all"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
     # Whne both the positional argument and subcommand are present, the positional argument must be first
-    out = subprocess.run(['cli-datasets', 'land', 'all', '--netcdf'], check=True)
+    out = subprocess.run(["cli-datasets", "land", "all", "--netcdf"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
     # The optional netcdf argument can occur in any order
-    out = subprocess.run(['cli-datasets', '--netcdf', 'land', 'pick'], check=True)
+    out = subprocess.run(["cli-datasets", "--netcdf", "land", "pick"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
@@ -119,7 +125,7 @@ def test_cli_run_as_module_with_options():
     """
 
     # Call the cli script via python as named module  and assign response
-    out = subprocess.run(["python3", '-m', MODULE, 'land', 'all'], check=True)
+    out = subprocess.run(["python3", "-m", MODULE, "land", "all"], check=True)
     # Check if exit code indicates success (0 = success)
     assert out.returncode == 0
 
@@ -127,14 +133,15 @@ def test_cli_run_as_module_with_options():
 # Run a range of tests to check that accessing and using the cli tool behaves as expected
 # Returns error or fails if the user gives the wrong values
 
+
 def test_cli_datasets_entry_point_user_input():
     """Test for cli tool user input values """
 
     # Create a range of possible user input test arguments - expected to fail
-    wrong_argument_order = ['--netcdf', 'all', 'land']
-    missing_subcommand = ['land']
-    argument_missing = ['']
-    too_many_arguments = ['land', 'all', '--netcdf', 'marine']
+    wrong_argument_order = ["--netcdf", "all", "land"]
+    missing_subcommand = ["land"]
+    argument_missing = [""]
+    too_many_arguments = ["land", "all", "--netcdf", "marine"]
 
     # Apply cli tool
     # Confirm expected errors - expect to fail
@@ -149,6 +156,3 @@ def test_cli_datasets_entry_point_user_input():
 
     with pytest.raises(SystemExit):
         cli_datasets_entry_point(too_many_arguments)
-
-
-
